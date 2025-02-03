@@ -1,0 +1,13 @@
+prefix=l:/2024/Hk_k10/k10_Arduino_demo/.conda/Library
+exec_prefix=l:/2024/Hk_k10/k10_Arduino_demo/.conda/Library
+libdir=l:/2024/Hk_k10/k10_Arduino_demo/.conda/Library/lib
+sharedlibdir=l:/2024/Hk_k10/k10_Arduino_demo/.conda/Library/lib
+includedir=l:/2024/Hk_k10/k10_Arduino_demo/.conda/Library/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}
