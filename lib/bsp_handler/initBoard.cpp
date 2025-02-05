@@ -6,6 +6,8 @@
  */
 // XL95x5 ExpandPin(XL95x5_IIC_ADDRESS, Wire);
 // XL95x5 ExpandPin(XL95x5_IIC_ADDRESS, Wire);
+
+Audio audio;
 XL95x5 ExpandPin(XL95x5_IIC_ADDRESS, XL95x5_SDA, XL95x5_SCL);
 esp_err_t init_board(void){
     
@@ -36,7 +38,8 @@ esp_err_t init_board(void){
     ExpandPin.pinMode(eP13,INPUT);
     ExpandPin.pinMode(eP14,INPUT);
     ExpandPin.pinMode(eP15,INPUT);
-
+    audio.setPinout(I2S_BCLK, I2S_LRC, I2S_DOUT);
+    audio.setVolume(0);  // 0...21
     return ESP_OK;
 };
 /**

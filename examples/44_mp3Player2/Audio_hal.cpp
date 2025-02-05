@@ -1,5 +1,5 @@
 #include "Audio_hal.h"
-Audio audio;
+// Audio audio;
 
 
 
@@ -11,7 +11,7 @@ void IRAM_ATTR example_increase_audio_tick(void *arg)
 void Audio_Init() {
   // Audio
   
-  audio.setPinout(I2S_BCLK, I2S_LRC, I2S_DOUT);
+  // audio.setPinout(I2S_BCLK, I2S_LRC, I2S_DOUT);
   audio.setVolume(Volume); // 0...21    
 
   esp_timer_handle_t audio_tick_timer = NULL;

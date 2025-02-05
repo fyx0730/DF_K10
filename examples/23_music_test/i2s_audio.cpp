@@ -20,17 +20,18 @@
 #include "WiFiMulti.h"
 #include "Audio.h"
 #include "SPI.h"
+#include "initBoard.h"
 
 // Digital I/O used
 
-#define I2S_DOUT 45
-#define I2S_BCLK 0
-#define I2S_LRC  38
+// #define I2S_DOUT 45
+// #define I2S_BCLK 0
+// #define I2S_LRC  38
 
-Audio audio;
+// Audio audio;
 WiFiMulti wifiMulti;
-String ssid     = "";
-String password = "";
+String ssid     = "GenVex";
+String password = "Ge098126";
 
 void setup() {
     Serial.begin(115200);
@@ -42,8 +43,9 @@ void setup() {
         WiFi.disconnect(true);
         wifiMulti.run();
     }
-    audio.setPinout(I2S_BCLK, I2S_LRC, I2S_DOUT);
-    audio.setVolume(20);  // 0...21
+    init_board();
+    // audio.setPinout(I2S_BCLK, I2S_LRC, I2S_DOUT);
+    audio.setVolume(21);  // 0...21
     const char *url = "http://42.193.120.65:8002/ygzjhyl.mp3";
     // const char * url = "http://42.193.120.65:8002/520AM.mp3";
     audio.connecttohost(url);

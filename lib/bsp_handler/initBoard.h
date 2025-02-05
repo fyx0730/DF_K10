@@ -1,6 +1,6 @@
 #pragma once
 #include <Arduino.h>  // 对于 ESP32 标准的数字读写函数
-
+#include "Audio.h"
 #include "../XL95x5/XL95x5_Driver.h"
 
 #define INTR_POSEDGE          0 //上升沿
@@ -8,6 +8,12 @@
 #define INTR_ANYEDGE          2//双边沿
 #define OPENDRAIN             0
 #define PUSHPULL              1
+
+#define I2S_DOUT 45
+#define I2S_BCLK 0
+#define I2S_LRC  38
+
+extern Audio audio;
 
 #ifdef __cplusplus
 extern "C" {
