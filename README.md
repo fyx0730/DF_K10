@@ -1,5 +1,5 @@
 编译出错，注意查看lib里的部分文件夹是空的，需要从lib.zip里找回。 
-
+Arduino_DriveBus、ESP32_JPEG ，下载后这两个库是空的。 
 配套使用教程说明
 https://mc.dfrobot.com.cn/thread-323838-1-1.html
 
