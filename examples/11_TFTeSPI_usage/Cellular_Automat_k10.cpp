@@ -67,6 +67,8 @@ void computeCA(void);
 void setup() {
     Serial.begin(115200);
     Serial.println("Test begin");
+    pinMode(0, OUTPUT); // suppress the noise
+    digitalWrite(0, LOW);
     Wire.begin(47, 48);
     expander =
         new EXAMPLE_CHIP_CLASS(EXAMPLE_CHIP_NAME, (i2c_port_t)EXAMPLE_I2C_NUM,

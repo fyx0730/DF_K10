@@ -19,8 +19,9 @@ SemaphoreHandle_t xGuiSemaphore;
 
 // UNIHIKER_K10 k10;
 void setup() {
-    Serial.begin(115200);    
-
+    Serial.begin(115200);
+    pinMode(0, OUTPUT);  // suppress the noise
+    digitalWrite(0, LOW);
     /* Initialize the LVGL */
     lvgl_begin();
     xGuiSemaphore = xSemaphoreCreateMutex();
@@ -43,7 +44,7 @@ void setup() {
 }
 
 void loop() {
-      vTaskDelay(pdMS_TO_TICKS(10));
+    vTaskDelay(pdMS_TO_TICKS(10));
     /* Try to take the semaphore, call lvgl related function on success */
     if (pdTRUE == xSemaphoreTake(xGuiSemaphore, portMAX_DELAY)) {
         lv_task_handler();

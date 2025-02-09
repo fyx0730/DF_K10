@@ -144,6 +144,8 @@ void esp_face_detection_ai_deinit(void)
 void setup()
 {
     Serial.begin(115200);
+    pinMode(0, OUTPUT); // suppress the noise
+    digitalWrite(0, LOW);
     init_board();
     lcd.init();
     lcd.setRotation(0);

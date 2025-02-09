@@ -28,6 +28,8 @@ XL95x5 ExpandPin(XL95x5_IIC_ADDRESS, XL95x5_SDA, XL95x5_SCL);
 char info[20];
 void setup() {
     Serial.begin(115200);
+    pinMode(0, OUTPUT); // suppress the noise
+    digitalWrite(0, LOW);
     while (!Serial) {
         delay(10);  // wait for serial port to open
     }

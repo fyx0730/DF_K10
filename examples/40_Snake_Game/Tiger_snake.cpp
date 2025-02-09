@@ -98,6 +98,8 @@ void setup()
 {
   // for pico_ssd1306
   Serial.begin(115200);
+  pinMode(0, OUTPUT); // suppress the noise
+  digitalWrite(0, LOW);
   init_board();
   Lcd.init();
   Lcd.print("Hello world");

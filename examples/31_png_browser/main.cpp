@@ -15,7 +15,7 @@
 #include <examples/lv_examples.h>
 #include "SD_Card.h"
 #include "Button_handler.h"
- 
+
 SdCard tf;
 
 Button *buttonA = new Button(eP5_KeyA);
@@ -35,16 +35,15 @@ lv_obj_t *btn_prev;
 lv_obj_t *btn_next;
 
 #define MAX_PNG_FILES   100  // 假设最多存储 1000 个 PNG 文件路径
-#define MAX_PATH_LENGTH 256   // 假设路径长度不超过 255 个字符
+#define MAX_PATH_LENGTH 256  // 假设路径长度不超过 255 个字符
 
 // 全局变量
 char img_paths[MAX_PNG_FILES][MAX_PATH_LENGTH];  // 存储 PNG 文件路径的数组
-int png_count = 0;  // 记录找到的 PNG 文件数量
+int png_count = 0;                               // 记录找到的 PNG 文件数量
 
 // char *img_paths[MAX_FILES];
 // int img_count = 0;
 int current_img_index = 0;
-
 
 void load_img(int index);
 void prev_img_event_cb(lv_event_t *e);
@@ -55,13 +54,9 @@ void find_png_files_recursive(const char *base_path);
 void KEYB(void);
 void KEYA(void);
 
-
-
-
 TimerHandle_t xAutoSwitchTimer = NULL;
 
-void vTimerCallback( TimerHandle_t pxTimer )
-{
+void vTimerCallback(TimerHandle_t pxTimer) {
     current_img_index++;
     if (current_img_index >= png_count) {
         current_img_index = 0;
@@ -69,19 +64,20 @@ void vTimerCallback( TimerHandle_t pxTimer )
     load_img(current_img_index);
 }
 
-
 void setup() {
     Serial.begin(115200);
     //   Wire.begin(47,48);
+    pinMode(0, OUTPUT);  // suppress the noise
+    digitalWrite(0, LOW);
     Wire.begin(47, 48);
-    pinMode(45,OUTPUT);
-    digitalWrite(45,HIGH);
+    pinMode(45, OUTPUT);
+    digitalWrite(45, HIGH);
     lvgl_begin();
     xGuiSemaphore = xSemaphoreCreateMutex();
     xSemaphoreGive(xGuiSemaphore);
     tf.init();
     lv_fs_fatfs_init();
-    
+
     find_png_files_recursive("S:");
 
     printf("Found %d PNG files:\n", png_count);
@@ -91,7 +87,7 @@ void setup() {
     create_img_browser();
     buttonA->setPressedCallback(&KEYA);
     buttonB->setPressedCallback(&KEYB);
- 
+
     if (png_count > 0) {
         // 加载第一张图片
         load_img(0);
@@ -99,24 +95,21 @@ void setup() {
         printf("No .jpg files found!\n");
     }
 
+    xAutoSwitchTimer =
+        xTimerCreate("AutoSwitchTimer",     // 定时器名称
+                     pdMS_TO_TICKS(10000),  // 定时器周期，2000ms = 2s
+                     pdTRUE,                // 自动重载
+                     (void *)0,             // 定时器ID
+                     vTimerCallback         // 定时器回调函数
+        );
 
-    xAutoSwitchTimer = xTimerCreate(
-        "AutoSwitchTimer",          // 定时器名称
-        pdMS_TO_TICKS(10000),        // 定时器周期，2000ms = 2s
-        pdTRUE,                     // 自动重载
-        (void *)0,                  // 定时器ID
-        vTimerCallback          // 定时器回调函数
-    );
-
-        // 启动定时器
+    // 启动定时器
     // if (xAutoSwitchTimer != NULL) {
     //     xTimerStart(xAutoSwitchTimer, 0);
     // }
-
 }
 
 void loop() {
-
     /* Try to take the semaphore, call lvgl related function on success */
     vTaskDelay(pdMS_TO_TICKS(10));
     /* Try to take the semaphore, call lvgl related function on success */
@@ -125,7 +118,6 @@ void loop() {
         xSemaphoreGive(xGuiSemaphore);
     }
 }
-
 
 void load_img(int index) {
     if (index < 0 || index >= png_count) {
@@ -166,13 +158,13 @@ void create_img_browser(void) {
     lv_obj_clear_flag(img, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
 
     btn_prev = lv_btn_create(lv_scr_act());
-    lv_obj_add_style(btn_prev, &btn_style, 0); // 将样式应用到按钮上
+    lv_obj_add_style(btn_prev, &btn_style, 0);  // 将样式应用到按钮上
     lv_obj_align(btn_prev, LV_ALIGN_BOTTOM_LEFT, 10, -10);
     lv_obj_t *label_prev = lv_label_create(btn_prev);
     lv_label_set_text(label_prev, "Prev");
 
     btn_next = lv_btn_create(lv_scr_act());
-    lv_obj_add_style(btn_next, &btn_style, 0); // 将样式应用到按钮上
+    lv_obj_add_style(btn_next, &btn_style, 0);  // 将样式应用到按钮上
     lv_obj_align(btn_next, LV_ALIGN_BOTTOM_RIGHT, -10, -10);
     lv_obj_t *label_next = lv_label_create(btn_next);
     lv_label_set_text(label_next, "Next");

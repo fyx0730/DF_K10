@@ -23,6 +23,8 @@ void KEYA(void)  // Callback function for button A
 void setup() {
     /* Initialize the Serial */
     Serial.begin(115200);
+    pinMode(0, OUTPUT); // suppress the noise
+    digitalWrite(0, LOW);
     lvgl_begin();
     delay(100);
     buttonA->setPressedCallback(&KEYA);

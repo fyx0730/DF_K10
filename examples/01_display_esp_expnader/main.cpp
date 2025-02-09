@@ -34,8 +34,8 @@ void setup() {
     while (!Serial) {
         delay(10);  // wait for serial port to open
     }
-    pinMode(45,OUTPUT);
-    digitalWrite(45,HIGH);
+    pinMode(0, OUTPUT); // suppress the noise
+    digitalWrite(0, LOW);
     Serial.println("Adafruit LTR-303 simple test");
     Wire.begin(47, 48);
     // init_board();

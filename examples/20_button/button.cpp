@@ -19,7 +19,7 @@ Button *buttonA = new Button(eP5_KeyA);
 
 Button *buttonB = new Button(eP11_KeyB);
 
-Button* buttonAB = new Button(eP5_KeyA, eP11_KeyB);
+Button *buttonAB = new Button(eP5_KeyA, eP11_KeyB);
 
 void KEYB(void)  // Callback function for button B
 {
@@ -33,9 +33,10 @@ void KEYA(void)  // Callback function for button A
 
 void setup() {
     Serial.begin(115200);
+    pinMode(0, OUTPUT);  // suppress the noise
+    digitalWrite(0, LOW);
     init_board();
     Serial.println("Test Start");
-
 
     buttonA->setPressedCallback(&KEYA);
     buttonB->setPressedCallback(&KEYB);

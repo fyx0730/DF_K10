@@ -24,11 +24,11 @@
 
 // Digital I/O used
 
-// #define I2S_DOUT 45
-// #define I2S_BCLK 0
-// #define I2S_LRC  38
+#define I2S_DOUT 45
+#define I2S_BCLK 0
+#define I2S_LRC  38
 
-// Audio audio;
+Audio audio;
 WiFiMulti wifiMulti;
 String ssid     = "GenVex";
 String password = "Ge098126";
@@ -44,7 +44,7 @@ void setup() {
         wifiMulti.run();
     }
     init_board();
-    // audio.setPinout(I2S_BCLK, I2S_LRC, I2S_DOUT);
+    audio.setPinout(I2S_BCLK, I2S_LRC, I2S_DOUT);
     audio.setVolume(21);  // 0...21
     const char *url = "http://42.193.120.65:8002/ygzjhyl.mp3";
     // const char * url = "http://42.193.120.65:8002/520AM.mp3";

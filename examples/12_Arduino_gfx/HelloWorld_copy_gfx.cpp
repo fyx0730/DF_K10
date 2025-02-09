@@ -47,6 +47,8 @@ Arduino_GFX *gfx = new Arduino_ILI9341(bus, DF_GFX_RST, 0 /* rotation */, false 
 void setup(void)
 {
   Serial.begin(115200);
+  pinMode(0, OUTPUT); // suppress the noise
+  digitalWrite(0, LOW);
   init_board();
   // Serial.setDebugOutput(true);
   // while(!Serial);

@@ -73,6 +73,8 @@ void computeCA(void);
 void setup() {
     Serial.begin(115200);
     Serial.println("Test begin");
+    pinMode(0, OUTPUT); // suppress the noise
+    digitalWrite(0, LOW);
     init_board();
 
     // Set up the display
