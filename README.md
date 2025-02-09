@@ -1,5 +1,9 @@
 编译出错，注意查看lib里的部分文件夹是空的，需要从lib.zip里找回。 
 
+配套使用教程说明
+https://mc.dfrobot.com.cn/thread-323838-1-1.html
+
+欢迎留言讨论。
 
 ```c
 
